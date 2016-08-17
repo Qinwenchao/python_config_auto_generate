@@ -73,14 +73,14 @@ class ConfigManager(object):
 
     def replace_func(self, match):
         """
-        用env的变量替换${var}
+        replace ${var} with env variable
         """
         value = match.group(1)
         return self.env_config.get(value, None)
 
     def __getitem__(self, item):
         """
-        获取环境变量
+        interface to get env variable
         """
         if not self.load:
             self.init_env_config()
@@ -92,27 +92,34 @@ class ConfigManager(object):
 def auto_generate_config(conf_dir, config_dir, specific_env_mark=None, default_config_mark="default",
                          template_mark="template"):
     """
-    conf目录, config环境变量目录
+    :parameter conf_dir: conf_dir
+    :parameter config_dir: env_config_dir
+    :parameter specific_env_mark: env_mark
+    :parameter default_config_mark: default_env_mark
+    :parameter template_mark: template_mark
     """
     config_file_list = os.listdir(config_dir)
-    default_config_file_path = None
+    default_config_file_name = None
 
     # fetch default config
     for config_file_name in config_file_list:
         if default_config_mark in config_file_name:
-            default_config_file_path = os.path.join(config_dir, config_file_name)
+            default_config_file_name = config_file_name
             break
 
     # need default settings
-    assert default_config_file_path is not None
+    assert default_config_file_name is not None
 
     for config_file_name in config_file_list:
         if default_config_mark in config_file_name:
             continue
         env_name = config_file_name.split(".")[0]
+
         if specific_env_mark and specific_env_mark != env_name:
             continue
-        config_manager = ConfigManager(default_config_file_path, os.path.join(config_dir, config_file_name))
+
+        config_manager = ConfigManager(os.path.join(config_dir, default_config_file_name),
+                                       os.path.join(config_dir, config_file_name))
         config_dir_name = config_dir.split("/")[-1]
         conf_dir_list = os.listdir(conf_dir)
         for dir_name in conf_dir_list:
