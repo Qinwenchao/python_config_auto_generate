@@ -1,0 +1,2 @@
+zk=${ZK_HOST}
+<socket>${UWSGI_PORT}</socket>

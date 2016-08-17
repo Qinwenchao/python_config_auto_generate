@@ -1,0 +1,23 @@
+<uwsgi>
+    <socket>${UWSGI_PORT}</socket>
+    <master/>
+    <chdir>${PROJECT_PATH}</chdir>
+    <pythonpath>${PROJECT_PATH}</pythonpath>
+    <module>wsgi</module>
+
+    <harakiri>${UWSGI_HARAKIRI}</harakiri>
+
+    <workers>${UWSGI_WORKER_NUM}</workers>
+    <listen>${UWSGI_LISTEN_NUM}</listen>
+    <stats>${UWSGI_STATS_SOCKET}</stats>
+    <enable-threads/>
+    <logto>${LOG_PATH}/uwsgi/uwsgi.log</logto>
+    <daemonize>${LOG_PATH}/uwsgi/uwsgi.log</daemonize>
+    <memory-report/>
+
+    <buffer-size>${UWSGI_BUFFER_SIZE}</buffer-size>
+    <post-buffering>${UWSGI_POST_BUFFERING}</post-buffering>
+
+    <reload-on-as>${UWSGI_RELOAD_ON_AS}</reload-on-as>
+    <reload-on-rss>${UWSGI_RELOAD_ON_RSS}</reload-on-rss>
+</uwsgi>
