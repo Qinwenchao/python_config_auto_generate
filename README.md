@@ -1,4 +1,4 @@
-# python_config_auto_generate
+# batch generate config files by user defined env variables through template files
 use python to auto generate config files by template files with different user defined env variables
 
     initial conf structure
